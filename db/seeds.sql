@@ -1,6 +1,5 @@
 -- Seed data to populate database
 
-
 -- Department data
 INSERT INTO department (id, name)
 VALUES
