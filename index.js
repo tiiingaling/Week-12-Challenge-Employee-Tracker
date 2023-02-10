@@ -1,10 +1,7 @@
 const inquirer = require('inquirer');
-// const EmployeeDatabase = require('./db/EmployeeDatabase');
-const db = require('./config/connection');
+require("console.table");
+const db = require('./db/EmployeeDatabase');
 // const questions = require('./questions')
-
-// connects to the database
-db.connect();
 
 // to do:
 // view employees
@@ -30,8 +27,8 @@ const mainMenu = () => {
                         'Add a new department',
                     ],
             }])
-            .then((reponse) => {
-                switch(Response.choice) {
+            .then((response) => {
+                switch(response.choice) {
                     case 'See all employees':
                         view_employees()
                         break;
@@ -47,7 +44,7 @@ const mainMenu = () => {
 
 const view_employees = () => {
 
-    db.getEmployees().then((results) => {
+    db.findAllEmps().then(([results]) => {
 
         console.table(results);
 
@@ -57,7 +54,7 @@ const view_employees = () => {
 
 const view_roles = () => {
     
-    db.getRole().then((results) => {
+    db.getRole().then(([results]) => {
 
         console.table(results);
 
@@ -67,11 +64,14 @@ const view_roles = () => {
 
 const view_departments = () => {
     
-    db.getDepartment().then((results) => {
+    db.getDepartment().then(([results]) => {
 
         console.table(results);
 
         mainMenu();
     })
 }
+
+mainMenu();
+
 
