@@ -6,7 +6,7 @@ class DB {
     constructor(connection){
         this.connection = connection
     }
-
+// pulls data to display into a table
     findEmp(){
         return this.connection.promise().query(`
         SELECT employee.id,
@@ -30,6 +30,14 @@ class DB {
     findDep(){
         return this.connection.promise().query("SELECT * FROM department");
     }
+
+// methods to add data into the table
+
+addEmp(first_name, last_name, role_id, manager_id){
+    return this.connection.promise().query(`INSERT INTO employee (employee.first_name, employee.last_name, employee.role_id, employee.manager_id)
+    VALUES (${first_name}, ${last_name}, ${role_id}, ${manager_id});`
+    )
+}
 }
 
 module.exports = new DB(connection);
