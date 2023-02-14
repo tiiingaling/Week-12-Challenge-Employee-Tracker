@@ -10,6 +10,14 @@ class DB {
     findAllEmps(){
         return this.connection.promise().query("SELECT * FROM employee");
     }
+
+    findRole(){
+        return this.connection.promise().query("SELECT * FROM role");
+    }
+
+    findDep(){
+        return this.connection.promise().query("SELECT * FROM department");
+    }
 }
 
 module.exports = new DB(connection);

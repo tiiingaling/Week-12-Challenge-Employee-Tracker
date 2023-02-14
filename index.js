@@ -54,7 +54,7 @@ const view_employees = () => {
 
 const view_roles = () => {
     
-    db.getRole().then(([results]) => {
+    db.findRole().then(([results]) => {
 
         console.table(results);
 
@@ -64,7 +64,7 @@ const view_roles = () => {
 
 const view_departments = () => {
     
-    db.getDepartment().then(([results]) => {
+    db.findDep().then(([results]) => {
 
         console.table(results);
 
