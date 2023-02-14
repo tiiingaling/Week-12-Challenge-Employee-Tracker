@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const { findEmp } = require('./db/EmployeeDatabase');
 require("console.table");
 const db = require('./db/EmployeeDatabase');
 // const questions = require('./questions')
@@ -25,6 +26,7 @@ const mainMenu = () => {
                         'Add an employee',
                         'Add a role',
                         'Add a new department',
+                        'Update an employee',
                     ],
             }])
             .then((response) => {
@@ -43,8 +45,7 @@ const mainMenu = () => {
 }
 
 const view_employees = () => {
-
-    db.findAllEmps().then(([results]) => {
+    db.findEmp().then(([results]) => {
 
         console.table(results);
 
