@@ -24,7 +24,7 @@ class DB {
     }
 // pulls role data and displays title and salary
     findRole(){
-        return this.connection.promise().query(`SELECT role.id, 
+        return this.connection.promise().query(`SELECT role.id, role.title,
         CONCAT('£', FORMAT(salary, 0)) as Salary,
         department.name as 'Department'
         FROM role
