@@ -1,13 +1,10 @@
 const inquirer = require('inquirer');
-const { findEmp } = require('./db/EmployeeDatabase');
+const {findEmp} = require('./db/EmployeeDatabase');
 require("console.table");
 const db = require('./db/EmployeeDatabase');
-// const questions = require('./questions')
+const {add_employeeQuestions} = require('./questions')
 
 // to do:
-// view employees
-// view roles
-// view department
 // add employee
 // add role
 // add department
@@ -75,34 +72,41 @@ const view_departments = () => {
     })
 }
 
+// function to add employee
 const add_employee = () => {
-    inquirer.prompt([{
-        type: 'input',
-        message: 'What is the employee\'s first name?',
-        name:'first_name'
-    },
-    {
-        type: 'input',
-        message: 'What is the employee\'s last name?',
-        name:'last_name'
-    },
-    {
-        type: 'input',
-        message: 'What role is this employee?',
-        name:'role'
-    },
-    {
-        type: 'input',
-        message: 'Who will be their manager?',
-        name:'manager'
-    },
 
-])
-.then((response) => {
-    // need to query database for response.manager (name -> employee id) create a variable with the ID
-    // variable will be passed to line 103 instead of 'response.manager_id'
-    db.addEmp(response.first_name, response.last_name, response.role, 'response.manager_id')
-})
+    // gets departmental information from the db, to assign role to new employee
+    db.findRole().then((results) => {
+
+        const roleQuestion = add_employeeQuestions[2];
+        results.forEach((role) => {
+
+            const role_summary = `${role.title} (${role.department_name}: ${role.salary})`;
+            roleQuestion.choices.push({
+                value: role.id,
+                name: role_summary
+            });
+        });
+    });
+
+
+        db.findEmp().then((results) => {
+            const managerQuestion = add_employeeQuestions[3];
+            results.forEach((employee) => {
+                managerQuestion.choices.push({
+                    value: employee.id,
+                    name: employee.name
+                });
+            });
+        });
+
+inquirer.prompt(add_employeeQuestions)
+        .then((response) => {
+            db.addEmp(response).then((results) => {
+                console.log(results);
+                mainMenu();
+            })
+        })
 }
 
 const add_role = () => {
@@ -114,5 +118,3 @@ const add_department = () => {
 }
 
 mainMenu();
-
-

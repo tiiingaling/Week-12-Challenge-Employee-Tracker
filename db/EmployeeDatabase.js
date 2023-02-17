@@ -22,9 +22,14 @@ class DB {
         LEFT JOIN employee as manager ON employee.manager_id = manager.id
         ORDER BY employee.id`);
     }
-
+// pulls role data and displays title and salary
     findRole(){
-        return this.connection.promise().query("SELECT * FROM role");
+        return this.connection.promise().query(`SELECT role.id, 
+        CONCAT('£', FORMAT(salary, 0)) as Salary,
+        department.name as 'Department'
+        FROM role
+        
+        INNER JOIN Department ON role.department_id = department.id`);
     }
 
     findDep(){
