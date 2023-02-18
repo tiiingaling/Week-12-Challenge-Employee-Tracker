@@ -102,7 +102,7 @@ const add_employee = () => {
     rows.forEach((employee) => {
       managerQuestion.choices.push({
         value: employee.id,
-        name: employee.name,
+        name: employee.Name,
       });
     });
   });
