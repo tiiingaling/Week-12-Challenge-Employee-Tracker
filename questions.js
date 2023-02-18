@@ -24,8 +24,24 @@ const add_employeeQuestions = [
 ]
 
 const add_roleQuestions = [
-
-]
+    {
+      type: "input",
+      name: "title",
+      message: "Enter the title of the new role:",
+    },
+    {
+      type: "number",
+      name: "salary",
+      message: "Enter the salary for the new role:",
+    },
+    {
+      type: "list",
+      name: "department_id",
+      message: "Select the department for the new role:",
+      choices: [],
+    }
+  ];
+  
 
 const add_departmentQuestions = [
     {
@@ -35,4 +51,4 @@ const add_departmentQuestions = [
     },
 ]
 
-module.exports = {add_employeeQuestions, add_departmentQuestions}
+module.exports = {add_employeeQuestions, add_departmentQuestions, add_roleQuestions}

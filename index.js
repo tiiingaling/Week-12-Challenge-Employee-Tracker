@@ -4,12 +4,8 @@ const db = require("./db/EmployeeDatabase");
 const {
   add_employeeQuestions,
   add_departmentQuestions,
+  add_roleQuestions,
 } = require("./questions");
-
-// to do:
-// add employee
-// add role
-// add department
 
 const mainMenu = () => {
   // runs through the main choices
@@ -23,33 +19,40 @@ const mainMenu = () => {
           "See all employees",
           "See all roles",
           "See all departments",
-          "Add an employee",
-          "Add a role",
           "Add a new department",
+          "Add a role",
+          "Add an employee",
           "Update an employee",
         ],
       },
     ])
+    
     .then((response) => {
       switch (response.choice) {
         case "See all employees":
           view_employees();
           break;
+
         case "See all roles":
           view_roles();
           break;
+
         case "See all departments":
           view_departments();
           break;
-        case "Add an employee":
-          add_employee();
-          break;
-        case "Add a role":
-          add_role();
-          break;
+
         case "Add a new department":
           add_department();
           break;
+
+        case "Add a role":
+          add_role();
+          break;
+
+        case "Add an employee":
+          add_employee();
+          break;
+
         case "Update an employee":
           update_employee();
       }
@@ -77,6 +80,37 @@ const view_departments = () => {
     console.table(results);
 
     mainMenu();
+  });
+};
+
+const add_department = () => {
+  inquirer.prompt(add_departmentQuestions).then((response) => {
+    db.addDep(response).then((departmentId) => {
+      console.log(`Added new department with ID ${departmentId}`);
+      mainMenu();
+    });
+  });
+};
+
+const add_role = () => {
+  db.findDep().then((results) => {
+    const [rows] = results;
+    const departmentQuestion = add_roleQuestions.find(
+      (q) => q.name === "department_id"
+    );
+    rows.forEach((department) => {
+      departmentQuestion.choices.push({
+        name: department.name,
+        value: department.id,
+      });
+    });
+
+    inquirer.prompt(add_roleQuestions).then((response) => {
+      db.addRole(response).then(() => {
+        console.log(`Added new role '${response.title}'!`);
+        mainMenu();
+      });
+    });
   });
 };
 
@@ -118,19 +152,5 @@ const add_employee = () => {
     });
   });
 };
-
-const add_role = () => {
-  db.addRole();
-};
-
-const add_department = () => {
-    inquirer.prompt(add_departmentQuestions).then((response) => {
-      db.addDep(response).then((departmentId) => {
-        console.log(`Added new department with ID ${departmentId}`);
-        mainMenu();
-      });
-    });
-  };
-  
 
 mainMenu();
