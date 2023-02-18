@@ -64,6 +64,12 @@ const update_employeeQuestions = [
       name: "role_id",
       choices: [],
     },
+    {
+      type: "list",
+      name: "managerId",
+      message: "Who is the employee's new manager?",
+      choices: [],
+    },
   ];
 
 module.exports = {add_departmentQuestions, add_roleQuestions,add_employeeQuestions, update_employeeQuestions}

@@ -64,11 +64,13 @@ class DB {
     return this.connection.promise().query(sql);
   }
 
-  updateEmpRole({ employee_id, role_id }) {
-    const sql = "UPDATE employee SET role_id = ? WHERE id = ?";
-    const params = [role_id, employee_id];
+
+  updateEmpRole({ employee_id, role_id, manager_id }) {
+    const sql = "UPDATE employee SET role_id = ?, manager_id = ? WHERE id = ?";
+    const params = [role_id, manager_id, employee_id];
     console.log(`this is the params`, params);
     return this.connection.promise().query(sql, params);
-  }
+}
+  
 }
 module.exports = new DB(connection);

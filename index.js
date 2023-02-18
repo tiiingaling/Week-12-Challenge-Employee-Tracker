@@ -132,8 +132,8 @@ const add_employee = () => {
     });
   });
   // gets employee data from db for manager selection
-// gets employee data from db for manager selection
-db.findEmp().then((results) => {
+  // gets employee data from db for manager selection
+  db.findEmp().then((results) => {
     const [rows] = results;
     const managerQuestion = add_employeeQuestions[3];
     rows.forEach((employee) => {
@@ -148,46 +148,61 @@ db.findEmp().then((results) => {
       name: "None",
     });
   });
-  
+
   inquirer.prompt(add_employeeQuestions).then((response) => {
     db.addEmp(response).then((results) => {
-      console.log(results);
       mainMenu();
     });
   });
-  
 };
 
 const update_employee = () => {
-    db.findEmp().then((results) => {
+  db.findEmp().then((results) => {
+    const [rows] = results;
+    const employeeQuestion = update_employeeQuestions[0];
+    rows.forEach((employee) => {
+      employeeQuestion.choices.push({
+        value: employee.id,
+        name: employee.Name,
+      });
+
+      db.findRole().then((results) => {
         const [rows] = results;
-        const employeeQuestion = update_employeeQuestions[0];
-        rows.forEach((employee) => {
-          employeeQuestion.choices.push({
-            value: employee.id,
-            name: employee.Name,
-          });
-  
-          db.findRole().then((results) => {
-            const [rows] = results;
-            const roleQuestion = update_employeeQuestions[1];
-            rows.forEach((role) => {
-              const role_summary = `${role.Title} (${role.Department}: ${role.Salary})`;
-              roleQuestion.choices.push({
-                value: role.id,
-                name: role_summary,
-              });
-            });
-          });
-  
-        inquirer.prompt(update_employeeQuestions).then((response) => {
-          db.updateEmpRole(response).then(() => {
-            console.log(`Successfully updated employee's role!`);
-            mainMenu();
+        const roleQuestion = update_employeeQuestions[1];
+        rows.forEach((role) => {
+          const role_summary = `${role.Title} (${role.Department}: ${role.Salary})`;
+          roleQuestion.choices.push({
+            value: role.id,
+            name: role_summary,
           });
         });
       });
     });
-  };
+
+    // gets employee data from db for manager selection
+    db.findEmp().then((results) => {
+      const [rows] = results;
+      const managerQuestion = update_employeeQuestions[2];
+      rows.forEach((employee) => {
+        managerQuestion.choices.push({
+          value: employee.id,
+          name: employee.Name,
+        });
+      });
+      // adds an option for no manager
+      managerQuestion.choices.push({
+        value: null,
+        name: "None",
+      });
+    });
+    inquirer.prompt(update_employeeQuestions).then((response) => {
+      db.updateEmpRole(response).then(() => {
+        console.log(`Successfully updated employee's role and manager!`);
+        console.log(results);
+        mainMenu();
+      });
+    });
+  });
+};
 
 mainMenu();
