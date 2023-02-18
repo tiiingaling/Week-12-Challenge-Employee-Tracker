@@ -38,7 +38,7 @@ class DB {
   }
 
   // methods to add data into the table
-  
+
   addDep({ department_name }) {
     const sql = `INSERT INTO department (name) VALUES ('${department_name}')`;
     return this.connection
@@ -49,8 +49,7 @@ class DB {
         return result[0].insertId;
       });
   }
-}
-  
+
   addRole({ title, salary, department_id }) {
     const sql = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)`;
     const params = [title, salary, department_id];
@@ -58,13 +57,18 @@ class DB {
     return this.connection.promise().query(sql, params);
   }
 
-
-addEmp({ first_name, last_name, role, manager }) {
+  addEmp({ first_name, last_name, role, manager }) {
     const sql = `INSERT INTO employee
     (employee.first_name, employee.last_name, employee.role_id, employee.manager_id)
     VALUES ('${first_name}', '${last_name}', ${role}, ${manager});`;
     return this.connection.promise().query(sql);
   }
 
-
+  updateEmpRole({ employee_id, role_id }) {
+    const sql = "UPDATE employee SET role_id = ? WHERE id = ?";
+    const params = [role_id, employee_id];
+    console.log(`this is the params`, params);
+    return this.connection.promise().query(sql, params);
+  }
+}
 module.exports = new DB(connection);

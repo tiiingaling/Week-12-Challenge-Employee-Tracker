@@ -1,3 +1,30 @@
+const add_departmentQuestions = [
+    {
+        type: 'input',
+        name: 'department_name',
+        message: 'What is the name of the new department?'
+    },
+];
+
+const add_roleQuestions = [
+    {
+      type: "input",
+      name: "title",
+      message: "Enter the title of the new role:",
+    },
+    {
+      type: "number",
+      name: "salary",
+      message: "Enter the salary for the new role:",
+    },
+    {
+      type: "list",
+      name: "department_id",
+      message: "Select the department for the new role:",
+      choices: [],
+    }
+  ];
+
 const add_employeeQuestions = [
     {
     type: 'input',
@@ -21,34 +48,22 @@ const add_employeeQuestions = [
     name:'manager',
     choices:[],
 },
-]
+];
 
-const add_roleQuestions = [
+
+const update_employeeQuestions = [
     {
-      type: "input",
-      name: "title",
-      message: "Enter the title of the new role:",
-    },
-    {
-      type: "number",
-      name: "salary",
-      message: "Enter the salary for the new role:",
+      type: "list",
+      message: "Which employee do you want to update?",
+      name: "employee_id",
+      choices: [],
     },
     {
       type: "list",
-      name: "department_id",
-      message: "Select the department for the new role:",
+      message: "What is the employee's new role?",
+      name: "role_id",
       choices: [],
-    }
-  ];
-  
-
-const add_departmentQuestions = [
-    {
-        type: 'input',
-        name: 'department_name',
-        message: 'What is the name of the new department?'
     },
-]
+  ];
 
-module.exports = {add_employeeQuestions, add_departmentQuestions, add_roleQuestions}
+module.exports = {add_departmentQuestions, add_roleQuestions,add_employeeQuestions, update_employeeQuestions}
