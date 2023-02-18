@@ -48,9 +48,15 @@ addEmp({first_name, last_name, role, manager}){
 
 }
 
-addDep(department) {
-
-}
+addDep({department_name}) {
+    const sql = `INSERT INTO department (name) VALUES ('${department_name}')`;
+    return this.connection.promise().query(sql).then((result) => {
+      console.log(`Added new department: ${department_name}`);
+      return result[0].insertId;
+    });
+  }
+  
+  
 
 }
 

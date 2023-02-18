@@ -84,7 +84,6 @@ const view_departments = () => {
 const add_employee = () => {
   // gets departmental information from the db, to assign role to new employee
   db.findRole().then((results) => {
-
     const [rows] = results;
     const roleQuestion = add_employeeQuestions[2];
     rows.forEach((role) => {
@@ -107,7 +106,7 @@ const add_employee = () => {
       // adds an option for no manager
       managerQuestion.choices.push({
         value: null,
-        name: 'None'
+        name: "None",
       });
     });
   });
@@ -118,9 +117,6 @@ const add_employee = () => {
       mainMenu();
     });
   });
-
-
-
 };
 
 const add_role = () => {
@@ -128,11 +124,13 @@ const add_role = () => {
 };
 
 const add_department = () => {
-  inquirer.prompt(add_departmentQuestions).then((response) => {
-    db.addDep(response).then((response) => {
-      mainMenu();
+    inquirer.prompt(add_departmentQuestions).then((response) => {
+      db.addDep(response).then((departmentId) => {
+        console.log(`Added new department with ID ${departmentId}`);
+        mainMenu();
+      });
     });
-  });
-};
+  };
+  
 
 mainMenu();
