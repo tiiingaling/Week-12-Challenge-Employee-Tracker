@@ -1,5 +1,11 @@
+# Week 12 Challenge - Employee Tracker
+## Description
+This week's challenge is to build a command-line application from scratch to manage a company's employee database, using Node.js, Inquirer, and MySQL.
 
-
+## Technology used:
+* Node.js
+* Inquirer
+* MySQL
 ## Acceptance Criteria
 ```GIVEN a command-line application that accepts user input
 WHEN I start the application
@@ -19,3 +25,6 @@ THEN I am prompted to enter the employee’s first name, last name, role, and ma
 WHEN I choose to update an employee role
 THEN I am prompted to select an employee to update and their new role and this information is updated in the database
 ```
+
+## Video Link
+https://watch.screencastify.com/v/ARegHTQoK5AkMad4W4sI
