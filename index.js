@@ -1,7 +1,10 @@
 const inquirer = require("inquirer");
 require("console.table");
 const db = require("./db/EmployeeDatabase");
-const { add_employeeQuestions } = require("./questions");
+const {
+  add_employeeQuestions,
+  add_departmentQuestions,
+} = require("./questions");
 
 // to do:
 // add employee
@@ -40,6 +43,15 @@ const mainMenu = () => {
           break;
         case "Add an employee":
           add_employee();
+          break;
+        case "Add a role":
+          add_role();
+          break;
+        case "Add a new department":
+          add_department();
+          break;
+        case "Update an employee":
+          update_employee();
       }
     });
 };
@@ -72,9 +84,11 @@ const view_departments = () => {
 const add_employee = () => {
   // gets departmental information from the db, to assign role to new employee
   db.findRole().then((results) => {
+
+    const [rows] = results;
     const roleQuestion = add_employeeQuestions[2];
-    results.forEach((role) => {
-      const role_summary = `${role.title} (${role.department_name}: ${role.salary})`;
+    rows.forEach((role) => {
+      const role_summary = `${role.Title} (${role.deparment}: ${role.Salary})`;
       roleQuestion.choices.push({
         value: role.id,
         name: role_summary,
@@ -83,8 +97,9 @@ const add_employee = () => {
   });
 
   db.findEmp().then((results) => {
+    const [rows] = results;
     const managerQuestion = add_employeeQuestions[3];
-    results.forEach((employee) => {
+    rows.forEach((employee) => {
       managerQuestion.choices.push({
         value: employee.id,
         name: employee.name,
@@ -105,7 +120,11 @@ const add_role = () => {
 };
 
 const add_department = () => {
-  db.addDep();
+  inquirer.prompt(add_departmentQuestions).then((response) => {
+    db.addDep(response).then((response) => {
+      mainMenu();
+    });
+  });
 };
 
 mainMenu();

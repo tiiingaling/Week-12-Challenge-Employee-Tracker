@@ -27,4 +27,12 @@ const add_roleQuestions = [
 
 ]
 
-module.exports = {add_employeeQuestions}
+const add_departmentQuestions = [
+    {
+        type: 'input',
+        name: 'department_name',
+        message: 'What is the name of the new department?'
+    },
+]
+
+module.exports = {add_employeeQuestions, add_departmentQuestions}
