@@ -95,7 +95,7 @@ const add_employee = () => {
       });
     });
   });
-
+  // gets employee data from db for manager selection
   db.findEmp().then((results) => {
     const [rows] = results;
     const managerQuestion = add_employeeQuestions[3];
@@ -103,6 +103,11 @@ const add_employee = () => {
       managerQuestion.choices.push({
         value: employee.id,
         name: employee.Name,
+      });
+      // adds an option for no manager
+      managerQuestion.choices.push({
+        value: null,
+        name: 'None'
       });
     });
   });
@@ -113,6 +118,9 @@ const add_employee = () => {
       mainMenu();
     });
   });
+
+
+
 };
 
 const add_role = () => {
