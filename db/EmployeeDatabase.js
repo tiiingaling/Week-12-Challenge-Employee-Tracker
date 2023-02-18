@@ -67,7 +67,7 @@ class DB {
 
   updateEmpRole({ employee_id, role_id, manager_id }) {
     const sql = "UPDATE employee SET role_id = ?, manager_id = ? WHERE id = ?";
-    const params = [role_id, manager_id, employee_id];
+    const params = [role_id,manager_id, employee_id];
     console.log(`this is the params`, params);
     return this.connection.promise().query(sql, params);
 }

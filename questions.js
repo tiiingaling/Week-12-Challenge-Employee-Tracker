@@ -66,7 +66,7 @@ const update_employeeQuestions = [
     },
     {
       type: "list",
-      name: "managerId",
+      name: "manager_id",
       message: "Who is the employee's new manager?",
       choices: [],
     },

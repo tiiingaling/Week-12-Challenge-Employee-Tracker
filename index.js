@@ -198,7 +198,6 @@ const update_employee = () => {
     inquirer.prompt(update_employeeQuestions).then((response) => {
       db.updateEmpRole(response).then(() => {
         console.log(`Successfully updated employee's role and manager!`);
-        console.log(results);
         mainMenu();
       });
     });
