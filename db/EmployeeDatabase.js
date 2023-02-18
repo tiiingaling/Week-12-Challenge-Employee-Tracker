@@ -45,7 +45,6 @@ addEmp({first_name, last_name, role, manager}){
     (employee.first_name, employee.last_name, employee.role_id, employee.manager_id)
     VALUES ('${first_name}', '${last_name}', ${role}, ${manager});`;
     return this.connection.promise().query(sql)
-
 }
 
 addDep({department_name}) {

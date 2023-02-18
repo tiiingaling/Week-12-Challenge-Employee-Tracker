@@ -87,7 +87,7 @@ const add_employee = () => {
     const [rows] = results;
     const roleQuestion = add_employeeQuestions[2];
     rows.forEach((role) => {
-      const role_summary = `${role.Title} (${role.deparment}: ${role.Salary})`;
+      const role_summary = `${role.Title} (${role.Department}: ${role.Salary})`;
       roleQuestion.choices.push({
         value: role.id,
         name: role_summary,
